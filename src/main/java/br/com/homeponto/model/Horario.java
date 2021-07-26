@@ -1,40 +1,44 @@
-package br.com.homeponto.homeponto.model;
+package br.com.homeponto.model;
 
 import java.time.LocalTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="horarios")
-public class Horarios {
+public class Horario {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
 	private LocalTime horarioEntrada;
+	
+	@NotNull
 	private LocalTime horarioSaida;
+	
+	@NotNull
 	private LocalTime horarioRetorno;
+	
+	@NotNull
 	private LocalTime horarioFinal;
 	
-	@OneToOne
-	private Usuario usuario; //FK
-	
-	public Horarios() {
+	public Horario() {
 		
 	}
 	
-	public Horarios(LocalTime horarioEntrada,LocalTime horarioSaida, LocalTime horarioRetorno, 
-			LocalTime horarioFinal, Usuario usuario) {
+	public Horario(LocalTime horarioEntrada,LocalTime horarioSaida, LocalTime horarioRetorno, 
+			LocalTime horarioFinal) {
 		
 		this.horarioEntrada = horarioEntrada;
 		this.horarioSaida = horarioSaida;
 		this.horarioRetorno = horarioSaida;
 		this.horarioFinal = horarioFinal;
-		this.usuario = usuario;		
+		
 	}
 
 	public Long getId() {
@@ -55,10 +59,6 @@ public class Horarios {
 
 	public LocalTime getHorarioFinal() {
 		return horarioFinal;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
 	}
 	
 	

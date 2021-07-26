@@ -1,12 +1,14 @@
-package br.com.homeponto.homeponto.model;
+package br.com.homeponto.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import br.com.homeponto.homeponto.controller.form.EmpresaForm;
+import br.com.homeponto.controller.form.EmpresaForm;
 
 @Entity
 @Table(name="empresas")
@@ -14,7 +16,11 @@ public class Empresa {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique=true) @NotNull
 	private String razaoSocial;
+	
+	@Column(unique=true) @NotNull
 	private String nomeFantasia;
 	
 	public Empresa() {

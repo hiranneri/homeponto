@@ -1,4 +1,4 @@
-package br.com.homeponto.homeponto.config.validacao;
+package br.com.homeponto.config.validacao;
 
 public class ErroFormularioDTO {
 

@@ -1,4 +1,4 @@
-package br.com.homeponto.homeponto.model;
+package br.com.homeponto.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="marcacoes")
@@ -16,8 +17,13 @@ public class Marcacao {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
 	private LocalTime horario;
+	
+	@NotNull
 	private LocalDate data;
+	
 	@ManyToOne
 	private Usuario usuario;
 	

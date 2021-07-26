@@ -1,4 +1,4 @@
-package br.com.homeponto.homeponto.controller.form;
+package br.com.homeponto.controller.form;
 
 import java.util.Optional;
 
@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import br.com.homeponto.homeponto.model.Empresa;
-import br.com.homeponto.homeponto.repository.EmpresaRepository;
+import br.com.homeponto.erros.EmpresaNotFoundException;
+import br.com.homeponto.model.Empresa;
+import br.com.homeponto.repository.EmpresaRepository;
 
 
 public class EmpresaForm {
@@ -49,6 +50,13 @@ public class EmpresaForm {
 		
 		return empresa;
 		
+	}
+	
+	public static Empresa pesquisarEmpresaPorID(Long id, EmpresaRepository empresaRepository){
+		Empresa empresa = empresaRepository.findById(id)
+				.orElseThrow(()-> new EmpresaNotFoundException(
+						"Empresa "+id+" não foi localizada"));
+		return empresa;
 	}
 	
 	

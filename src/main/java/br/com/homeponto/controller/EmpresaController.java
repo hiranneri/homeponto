@@ -1,4 +1,4 @@
-package br.com.homeponto.homeponto.controller;
+package br.com.homeponto.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.homeponto.homeponto.controller.form.EmpresaForm;
-import br.com.homeponto.homeponto.dto.EmpresaDTO;
-import br.com.homeponto.homeponto.model.Empresa;
-import br.com.homeponto.homeponto.repository.EmpresaRepository;
+import br.com.homeponto.controller.form.EmpresaForm;
+import br.com.homeponto.dto.EmpresaDTO;
+import br.com.homeponto.model.Empresa;
+import br.com.homeponto.repository.EmpresaRepository;
 
 @RestController
-@RequestMapping("/empresas")
+@RequestMapping("/api/empresa/")
 public class EmpresaController {
 	
 	@Autowired
@@ -52,7 +52,7 @@ public class EmpresaController {
 		Empresa empresa = empresaForm.converter();
 		empresaRepository.save(empresa);
 		
-		URI uri = uriBuilder.path("empresas/{id}").buildAndExpand(empresa.getId()).toUri();
+		URI uri = uriBuilder.path("/api/empresa/{id}").buildAndExpand(empresa.getId()).toUri();
 		return ResponseEntity.created(uri).body(new EmpresaDTO(empresa));
 	}
 	

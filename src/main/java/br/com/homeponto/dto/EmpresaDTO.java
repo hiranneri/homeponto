@@ -1,9 +1,9 @@
-package br.com.homeponto.homeponto.dto;
+package br.com.homeponto.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.homeponto.homeponto.model.Empresa;
+import br.com.homeponto.model.Empresa;
 
 public class EmpresaDTO {
 	private String razaoSocial;
