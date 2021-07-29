@@ -37,11 +37,15 @@ public class Perfil implements GrantedAuthority {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Horario horario;
 	
-	public Perfil(String nome, String sobrenome, Cargo cargo, Horario horario) {
+	@NotNull
+	private String fuso;
+	
+	public Perfil(String nome, String sobrenome, Cargo cargo, Horario horario, String fuso) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cargo = cargo;
 		this.horario = 	horario;
+		this.fuso = fuso;
 	}
 	
 	public Perfil() {
@@ -88,12 +92,21 @@ public class Perfil implements GrantedAuthority {
 	public void setHorario(Horario horario) {
 		this.horario = horario;
 	}
+	
+	public String getFuso() {
+		return fuso;
+	}
 
-	public static Perfil pesquisarPerfilPorID(Long idEmpresa, Long idPerfil,
-			PerfilRepository perfilRepository) {
+	public void setFuso(String fuso) {
+		this.fuso = fuso;
+	}
+
+	public static Perfil pesquisarPerfilPorID(Long idPerfil,PerfilRepository perfilRepository) {
+		
 		Perfil perfil = perfilRepository.findById(idPerfil).orElseThrow(()-> 
 			new PerfilNotFoundException("Perfil não localizado"));
 		return perfil;
+		
 	}
 
 	@Override
@@ -101,7 +114,4 @@ public class Perfil implements GrantedAuthority {
 		return this.cargo.getNome();
 	}
 	
-	
-	
-
 }

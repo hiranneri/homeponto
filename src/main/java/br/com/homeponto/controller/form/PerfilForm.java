@@ -45,6 +45,9 @@ public class PerfilForm {
 	@PastOrPresent 
 	private LocalTime horarioFinal;
 	
+	@NotNull @NotEmpty @Length(min = 3, max = 150)
+	private String fuso;
+	
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;	
@@ -104,6 +107,13 @@ public class PerfilForm {
 	public void setHorarioFinal(LocalTime horarioFinal) {
 		this.horarioFinal = horarioFinal;
 	}
+	
+	public String getFuso() {
+		return fuso;
+	}
+	public void setFuso(String fuso) {
+		this.fuso = fuso;
+	}
 	public Perfil converterParaPerfil() {
 		Cargo cargo = new Cargo(this.cargo);
 		Horario horario = new Horario(horarioEntrada, horarioSaida, horarioRetorno, horarioFinal);
@@ -120,9 +130,7 @@ public class PerfilForm {
 		Usuario usuario = new Usuario(this,empresa,perfil);
 		usuario.setSenha(hashSenha(usuario.getSenha()));
 		return usuario;
-	}
-
-	
+	}	
 	
 
 }

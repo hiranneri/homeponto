@@ -1,8 +1,9 @@
 package br.com.homeponto.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
+import java.time.ZonedDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,39 +19,45 @@ public class Marcacao {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
-	private LocalTime horario;
-	
-	@NotNull
-	private LocalDate data;
+	@Column(columnDefinition = "timestamptz") @NotNull
+	private ZonedDateTime horario;
 	
 	@ManyToOne
-	private Usuario usuario;
-	
-	public Marcacao (Long id, LocalTime horario, LocalDate data) {
-		this.id = id;
-		this.horario = horario;
-		this.data = data;
-	}
+	private Perfil usuario;
 	
 	public Marcacao() {
 		
 	}
+	
+	public Marcacao(ZonedDateTime horario, Perfil perfil) {
+		this.horario = horario;
+		this.usuario = perfil;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
-	public LocalTime getHorario() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public ZonedDateTime getHorario() {
 		return horario;
 	}
 
-	public LocalDate getData() {
-		return data;
+	public void setHorario(ZonedDateTime horario) {
+		this.horario = horario;
 	}
 
-	public Usuario getUsuario() {
+	public Perfil getUsuario() {
 		return usuario;
 	}
+
+	public void setUsuario(Perfil usuario) {
+		this.usuario = usuario;
+	}
+	
 	
 	
 

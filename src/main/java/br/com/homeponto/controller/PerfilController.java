@@ -59,7 +59,7 @@ public class PerfilController {
 			@PathVariable Long idEmpresa) {
 		try {
 			EmpresaForm.pesquisarEmpresaPorID(idEmpresa, empresaRepository);
-			Perfil perfil = Perfil.pesquisarPerfilPorID(idEmpresa, id, perfilRepository);
+			Perfil perfil = Perfil.pesquisarPerfilPorID(id, perfilRepository);
 			return ResponseEntity.ok(new PerfilDTO(perfil));	
 			
 		}catch(EmpresaNotFoundException | PerfilNotFoundException ex) {
@@ -101,7 +101,7 @@ public class PerfilController {
 			@PathVariable Long idEmpresa, @PathVariable Long id) {
 		try {
 			EmpresaForm.pesquisarEmpresaPorID(idEmpresa, empresaRepository);
-			Perfil perfil = Perfil.pesquisarPerfilPorID(idEmpresa, id, perfilRepository);
+			Perfil perfil = Perfil.pesquisarPerfilPorID(id, perfilRepository);
 			perfil.setNome(perfilForm.getNome());
 			perfil.setSobrenome(perfilForm.getSobrenome());
 			perfil.setCargo(new Cargo(perfilForm.getCargo()));

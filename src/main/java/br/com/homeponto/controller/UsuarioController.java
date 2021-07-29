@@ -54,8 +54,7 @@ public class UsuarioController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
-	
+		
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> desativarUsuario(@PathVariable Long idEmpresa, 
