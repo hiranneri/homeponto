@@ -3,16 +3,17 @@ package br.com.homeponto.controller.form;
 import java.time.ZonedDateTime;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import br.com.homeponto.model.Marcacao;
 import br.com.homeponto.model.Perfil;
 
 public class MarcacaoForm {
 	
-	@NotBlank
+	@NotNull(message = "Informe o id da empresa") 
 	private Long idEmpresa;
 	
-	@NotBlank
+	@NotBlank @NotNull(message = "Informe o seu login")
 	private String nomeUsuario;
 	
 	

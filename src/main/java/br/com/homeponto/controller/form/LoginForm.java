@@ -1,15 +1,16 @@
 package br.com.homeponto.controller.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class LoginForm {
 
-	@NotBlank
+	@NotBlank @NotNull(message="Informe o seu login")
 	private String login;
 	
-	@NotBlank
+	@NotBlank @NotNull(message="Informe sua senha")
 	private String senha;
 	
 	

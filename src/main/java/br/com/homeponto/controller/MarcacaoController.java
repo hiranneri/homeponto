@@ -3,8 +3,8 @@ package br.com.homeponto.controller;
 import java.net.URI;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import br.com.homeponto.controller.form.EmpresaForm;
 import br.com.homeponto.controller.form.MarcacaoForm;
 import br.com.homeponto.dto.MarcacaoDTO;
-import br.com.homeponto.dto.PerfilDTO;
 import br.com.homeponto.erros.EmpresaNotFoundException;
+import br.com.homeponto.erros.PerfilNotFoundException;
 import br.com.homeponto.model.Empresa;
 import br.com.homeponto.model.Marcacao;
 import br.com.homeponto.model.Perfil;
@@ -42,7 +41,7 @@ public class MarcacaoController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<MarcacaoDTO> marcarPonto(@RequestBody MarcacaoForm marcacaoForm, 
+	public ResponseEntity<MarcacaoDTO> marcarPonto(@RequestBody @Valid MarcacaoForm marcacaoForm, 
 			@PathVariable Long idPerfil, UriComponentsBuilder uriBuilder) {
 		try {
 			Empresa empresa = validarEmpresa(marcacaoForm.getIdEmpresa());
@@ -55,12 +54,11 @@ public class MarcacaoController {
 					.buildAndExpand(marcacao.getId()).toUri();
 			
 			return ResponseEntity.created(uri).body(new MarcacaoDTO(marcacao,empresa));
-		}catch(EmpresaNotFoundException ex) {
+		}catch(EmpresaNotFoundException | PerfilNotFoundException ex) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	private ZonedDateTime gerarHorario(Perfil perfil) {
-		String fuso = "America/Sao_Paulo";
 		ZoneId zona = ZoneId.of(perfil.getFuso());
 		ZonedDateTime horarioAgora = ZonedDateTime.now(zona);
 		return horarioAgora;		 
@@ -73,5 +71,6 @@ public class MarcacaoController {
 		Perfil perfil = Perfil.pesquisarPerfilPorID(idPerfil, perfilRepository);
 		return perfil;
 	}
+	
 
 }

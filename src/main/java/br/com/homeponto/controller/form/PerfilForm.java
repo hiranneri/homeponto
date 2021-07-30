@@ -3,13 +3,19 @@ package br.com.homeponto.controller.form;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.homeponto.model.Cargo;
 import br.com.homeponto.model.Empresa;
 import br.com.homeponto.model.Horario;
@@ -33,16 +39,16 @@ public class PerfilForm {
 	@NotNull @NotEmpty @Length(min = 3, max = 50)
 	private String senha;
 	
-	@PastOrPresent 
+	@Pattern(regexp = "([2][0-3]|[0-1][0-9]|[1-9]):[0-5][0-9]:([0-5][0-9]|[6][0])")
 	private LocalTime horarioEntrada;
 	
-	@PastOrPresent 
+	@NotNull @NotBlank
 	private LocalTime horarioSaida;
 	
-	@PastOrPresent 
+	@NotNull @NotBlank
 	private LocalTime horarioRetorno;
 	
-	@PastOrPresent 
+	@NotNull @NotBlank
 	private LocalTime horarioFinal;
 	
 	@NotNull @NotEmpty @Length(min = 3, max = 150)
